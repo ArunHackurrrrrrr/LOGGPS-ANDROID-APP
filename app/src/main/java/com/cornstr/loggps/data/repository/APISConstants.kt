@@ -1,7 +1,7 @@
 package com.cornstr.loggps.data.repository
 
 object APISConstants{
-    const val base_Url = "https://cornstr.shop/"  // TODO YOUR DOMAIN HERE !!
+    const val base_Url = "http://192.168.132.48:8000//"  // TODO YOUR DOMAIN HERE !!
     const val get_token = "/api/token/"
     const val refresh_token = "/api/token/refresh/"
     const val login_End_Point = "auth/login/"

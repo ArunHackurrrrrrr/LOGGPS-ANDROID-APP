@@ -20,6 +20,8 @@ sealed class Screen(val title : String, val route : String) {
 
         object User_Details_Add : Pages("Details","add_user_details_page", R.drawable.ic_lock)
 
+        object Company_Details_Add : Pages("AddCompany","add_company_details_page",R.drawable.ic_notes)
+
     }
 }
 

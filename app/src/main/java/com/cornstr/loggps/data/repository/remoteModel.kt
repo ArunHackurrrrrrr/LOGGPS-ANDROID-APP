@@ -1,6 +1,10 @@
 package com.cornstr.loggps.data.repository
 import android.content.pm.PackageInstaller
 import android.os.Parcelable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import kotlinx.parcelize.Parcelize
 
@@ -91,18 +95,24 @@ data class  user_Data(
     val message : String ?=null
 ):Parcelable
 
-//@Parcelize
-//data class user_details(
-//    val details : user_Data?=null,
-//    val profile_url : String ?=null,
-//    val message : String ?=null
-//
-//): Parcelable
-
-
 
 @Parcelize
 data class  user_details_response(
     val message: String ?= null,
     val status: String ?=null
 ): Parcelable
+
+
+@Parcelize
+data class company_details(
+    val name : String ?=null,
+    val descreption : String ?=null,
+    val address : String ?=null,
+    val company_phone : String ?=null,
+    val company_emial : String ?=null,
+    val latitude : String ?=null,
+    val longitude : String ?=null,
+    val parameter : String ?=null,
+    val is_active : Boolean ?=null,
+    val company_Reg_Num : String ?=null
+) : Parcelable

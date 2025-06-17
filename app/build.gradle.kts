@@ -50,6 +50,8 @@ dependencies {
     //TODO PERMISSION DEPENDENCIES
 
 
+    //TODO GPS LOATION ACCESS
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
 
 
     //TODO SKELETON LOADING ANIMATION

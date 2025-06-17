@@ -1,6 +1,7 @@
 package com.cornstr.loggps.ui.screen
 
 import android.util.Log
+import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,14 +19,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -253,6 +258,31 @@ fun homeScreen(scaffoldPaddingValue : PaddingValues,navController: NavController
                                 navController.navigate("add_user_details_page")
                             }, modifier = Modifier.fillMaxWidth().size(50.dp).padding(horizontal = 8.dp)) {
                                 Text("Add Details")
+                            }
+                        }
+                    }
+                    else{
+                        Column(modifier = Modifier.matchParentSize().padding(horizontal = 4.dp)) {
+                            Button(
+                                onClick = {
+                                    navController.navigate("add_company_details_page")
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                                    .weight(0.2f), shape = RoundedCornerShape(24.dp)
+                            )
+                            {
+                                Text("Create Company")
+                            }
+
+                            Divider()
+
+                            Button(
+                                onClick = {},
+                                modifier = Modifier.fillMaxWidth()
+                                    .weight(0.2f), shape = RoundedCornerShape(24.dp)
+                            )
+                            {
+                                Text("Join Company")
                             }
                         }
                     }

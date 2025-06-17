@@ -12,9 +12,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.cornstr.loggps.data.repository.company_details
 import com.cornstr.loggps.ui.ViewModels.APIViewModel
 import com.cornstr.loggps.ui.ViewModels.HomeViewModel
 import com.cornstr.loggps.ui.screen.add_user_details
+import com.cornstr.loggps.ui.screen.company_Registration_Page
 //import com.cornstr.loggps.ui.UIViewModel
 import com.cornstr.loggps.ui.screen.homeScreen
 import com.cornstr.loggps.ui.screen.loading_Screen
@@ -45,6 +47,9 @@ fun NavigateScreen(navController: NavController, scaffoldPaddingValue : PaddingV
         }
         composable(Screen.Pages.User_Details_Add.route){
             add_user_details(modifier = Modifier,navController)
+        }
+        composable(Screen.Pages.Company_Details_Add.route){
+            company_Registration_Page()
         }
 
     }
