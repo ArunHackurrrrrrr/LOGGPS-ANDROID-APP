@@ -1,4 +1,5 @@
 package com.cornstr.loggps.data.repository
+import android.R
 import android.content.pm.PackageInstaller
 import android.os.Parcelable
 import androidx.compose.runtime.getValue
@@ -116,3 +117,9 @@ data class company_details(
     val is_active : Boolean ?=null,
     val company_Reg_Num : String ?=null
 ) : Parcelable
+
+@Parcelize
+data class company_Create_Response(
+    val status : Boolean ?=null,
+    val message : String ?=null
+): Parcelable

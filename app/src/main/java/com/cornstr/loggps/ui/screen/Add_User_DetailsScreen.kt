@@ -153,7 +153,8 @@ fun add_user_details(modifier: Modifier = Modifier,navController: NavController)
                             profilePicture?.let {
                                 Image(
                                     painter = rememberAsyncImagePainter(model = it),
-                                    contentDescription = null
+                                    contentDescription = null,
+                                    modifier = Modifier.clip(CircleShape).matchParentSize()
                                 )
                             }
                         }
@@ -316,7 +317,7 @@ fun loaderAnimation() {
 
 @Composable
 fun get_the_extractor(Image:(File)-> Unit){
-    imageExtractor(){
+    imageExtractor(true){
         recived->
         Image(recived)
     }

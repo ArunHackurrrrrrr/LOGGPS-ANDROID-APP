@@ -23,14 +23,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import java.io.File
 
 
 
 @Composable
-fun imageExtractor(Image:(File)-> Unit){
+fun imageExtractor(run : Boolean,Image:(File)-> Unit){
 
+    var get_image : Boolean by remember { mutableStateOf(false) }
     val context = LocalContext.current
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     val tempFile = File.createTempFile("pfp",".jpg",context.cacheDir)
@@ -57,17 +59,20 @@ fun imageExtractor(Image:(File)-> Unit){
         }
     }
 
-    TextButton(
-        onClick = {launcher.launch("image/*")},
-        modifier = Modifier
-            .padding(top = 40.dp, start = 4.dp, end = 4.dp)
-            .clip(RoundedCornerShape(40.dp))
-            .fillMaxWidth()
-            .height(55.dp)
-            .background(Color.Cyan)
-    ){
-        Text("Upload From Gallery", fontSize = 20.sp, color = Color.Black)
+    LaunchedEffect(run) {
+        launcher.launch("image/*")
     }
+//    TextButton(
+//        onClick = {launcher.launch("image/*")},
+//        modifier = Modifier
+//            .padding(top = 40.dp, start = 4.dp, end = 4.dp)
+//            .clip(RoundedCornerShape(40.dp))
+//            .fillMaxWidth()
+//            .height(55.dp)
+//            .background(Color.Cyan)
+//    ){
+//        Text("Upload From Gallery", fontSize = 20.sp, color = Color.Black)
+//    }
 
 
 }

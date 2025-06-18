@@ -10,11 +10,15 @@ import coil.network.HttpException
 import com.cornstr.loggps.data.remote.logGpsService
 //import com.cornstr.loggps.data.auth.TokenManager
 import com.cornstr.loggps.data.local.Graph
+import com.google.gson.Gson
 //import com.cornstr.loggps.ui.Token
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.File
 import java.lang.Exception
 import kotlin.math.log
@@ -220,6 +224,26 @@ class remoteRepository : ViewModel() {
             val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
             return MultipartBody.Part.createFormData(partName, file.name, requestFile)
         }
+
+
+
+
+
+    fun create_Company(acceToken: String, data : company_details, logo : File,onResult: (company_Create_Response) -> Unit){
+        val gson = Gson()
+        viewModelScope.launch {
+            try {
+                val logo = prepareFile("company_logo",logo)
+                val json = gson.toJson(data)
+                val dataBody = json.toRequestBody("user_data/json".toMediaType())
+                
+                val response = logGpsService.create_Company("Bearer $acceToken",dataBody,logo)
+                onResult(response)
+            }catch (e: Exception){
+                Log.d("REMOTE-REPO-LOG-GPS 233","$e")
+            }
+        }
+    }
 
 
 }

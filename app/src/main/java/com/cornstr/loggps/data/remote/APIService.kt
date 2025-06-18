@@ -11,7 +11,7 @@ import com.cornstr.loggps.data.repository.refreshTokensRequest
 import com.cornstr.loggps.data.repository.refreshTokensResponse
 import com.cornstr.loggps.data.repository.signup_credential
 import com.cornstr.loggps.data.repository.user_Data
-//import com.cornstr.loggps.data.repository.user_details
+import com.cornstr.loggps.data.repository.company_Create_Response
 import com.cornstr.loggps.data.repository.user_details_response
 import okhttp3.MultipartBody
 //import retrofit2.Retrofit
@@ -25,6 +25,7 @@ import retrofit2.http.Part
 
 
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -82,6 +83,14 @@ interface APIService{
         @Header("Authorization") token: String,
         @Part image: MultipartBody.Part
     ) : user_details_response
+
+    @Multipart
+    @POST(APISConstants.create_Company)
+    suspend fun create_Company(
+        @Header("Authorization") token: String,
+        @Part("data") data : RequestBody,
+        @Part image: MultipartBody.Part
+    ) : company_Create_Response
 
 }
 

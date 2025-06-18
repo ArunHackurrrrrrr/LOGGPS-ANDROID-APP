@@ -45,16 +45,7 @@ class AddUserDetailsViewModel: ViewModel() {
     var user_detail_add_response  = mutableStateOf(user_details_response())
         viewModelScope.launch {
             var accessToken = getAccessTokenSuspend(_tokenManager)
-            try {
-                _tokenManager.get_Tokens() {
-                    onResult ->
-                    Log.d("onresult","$onResult")
-                    accessToken = onResult.access.toString()
-                }
 
-            }catch (e: Exception){
-                Log.d("Add user detail view model 40","$e")
-            }
             try {
                 if (accessToken.isNotEmpty()){
                 _remote_Repo.add_user_details(accessToken,userDetails) {

@@ -1,5 +1,6 @@
 package com.cornstr.loggps.ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,12 +31,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.savedstate.savedState
+import coil.compose.rememberAsyncImagePainter
 import com.cornstr.loggps.data.repository.company_details
+import com.cornstr.loggps.ui.State.Create_Company_UiState
+import com.cornstr.loggps.ui.ViewModels.create_company_ViewModel
+import com.yourapp.utils.imageExtractor
+import java.io.File
 import java.nio.file.WatchEvent
 
 @Composable
@@ -48,6 +58,11 @@ fun company_Registration_Page(){
     var companyParameter : String by remember { mutableStateOf("") }
     var companyRegNo : String by remember { mutableStateOf("") }
     var isActive : Boolean by remember { mutableStateOf(true) }
+    var companyLogo by remember { mutableStateOf<File?>(null) }
+    var get_Img by remember { mutableStateOf(false) }
+    val createCompanyViewModel : create_company_ViewModel = viewModel()
+    val uistate by createCompanyViewModel.company_create_response.collectAsState()
+    var loading by remember { mutableStateOf(false) }
 
     val company_Details = company_details(
         name = companyName,
@@ -61,6 +76,17 @@ fun company_Registration_Page(){
         is_active = isActive,
         company_Reg_Num = companyRegNo
     )
+
+
+
+    when(uistate){
+        is Create_Company_UiState.Error<*> -> TODO()
+        Create_Company_UiState.Loading -> {}
+        is Create_Company_UiState.Success<*> -> TODO()
+    }
+
+
+
 
     //TODO UI STARTS HERE
 
@@ -77,7 +103,7 @@ fun company_Registration_Page(){
          item {
              Box(modifier = Modifier
                  .clip(RoundedCornerShape(24.dp))
-                 .background(Color.Red)
+//                 .background(Color.Red)
                  .fillMaxWidth()
                  .size(200.dp),
                  contentAlignment = Alignment.Center
@@ -88,15 +114,28 @@ fun company_Registration_Page(){
                      .size(190.dp)
                      .background(Color.White)
 
-                 )
+                 ){
+                     companyLogo.let {
+                         Image(painter = rememberAsyncImagePainter(model = it),
+                             contentDescription = null, modifier = Modifier.clip(CircleShape).matchParentSize())
+                     }
+                 }
 
-                 IconButton(onClick = {}, modifier = Modifier
-                     .clip(CircleShape)
-                     .size(190.dp)
-                     .background(Color.Cyan)
+                 if (!get_Img){
+                     IconButton(onClick = { get_Img = true}, modifier = Modifier
+                         .clip(CircleShape)
+                         .size(190.dp)
+                         .background(Color.Cyan)
 
-                 ) {
-                     Icon(Icons.Default.Create,contentDescription = null, modifier = Modifier.size(30.dp))
+                     ) {
+                         Icon(Icons.Default.Create,contentDescription = null, modifier = Modifier.size(30.dp))
+                     }
+                 }
+                 if (get_Img){
+                     get_Image() {
+                         image->
+                         companyLogo = image
+                     }
                  }
              }
          }
@@ -331,13 +370,21 @@ fun company_Registration_Page(){
 
             item {
                 Button(
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        loading = true
+                        companyLogo?.let {
+                            createCompanyViewModel.add_Company_Details(company_Details,it)
+                        }
+                              },
+                    modifier = Modifier.fillMaxWidth().size(60.dp).clip(RoundedCornerShape(24.dp)),
                     colors = ButtonDefaults.buttonColors(
-                        Color.Red
+                        Color.Cyan
                     )
                 ) {
-                    Text("Create Company")
+                    Text("Create Company !")
+                    if (loading){
+                        loaderAnimation()
+                    }
                 }
             }
 
@@ -346,4 +393,19 @@ fun company_Registration_Page(){
 
     }
 
+}
+
+@Composable
+fun loading_animation(){
+    CircularProgressIndicator()
+}
+
+
+@Composable
+fun get_Image(image: (File)-> Unit){
+    imageExtractor(true){
+        recivedImg->
+        image(recivedImg)
+
+    }
 }
