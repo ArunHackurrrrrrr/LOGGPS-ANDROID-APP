@@ -111,9 +111,9 @@ data class company_details(
     val address : String ?=null,
     val company_phone : String ?=null,
     val company_emial : String ?=null,
-    val latitude : String ?=null,
-    val longitude : String ?=null,
-    val parameter : String ?=null,
+    val latitude : Float ?=null,
+    val longitude : Float ?=null,
+    val parameter : Int ?=null,
     val is_active : Boolean ?=null,
     val company_Reg_Num : String ?=null
 ) : Parcelable

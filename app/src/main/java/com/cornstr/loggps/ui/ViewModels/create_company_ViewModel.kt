@@ -44,17 +44,29 @@ class create_company_ViewModel: ViewModel() {
                 if (accessToken.isNotEmpty()){
                     _remoteRepo.create_Company(accessToken,details,logo) {
                         response->
-                        create_Response.value = create_Response.value.copy(
-                            status = response.status,
-                            message = response.message
-                        )
-                        if (create_Response.value.status == true){
-                            _company_create_response.value = Create_Company_UiState.Success(create_Response.value)
-                        }
-                        if (create_Response.value.status == false){
-                            _company_create_response.value = Create_Company_UiState.Error(create_Response.value)
+                        try {
+                            Log.d("COMP-48-DEBUG","$response")
+                            create_Response.value = create_Response.value.copy(
+                                status = response.status,
+                                message = response.message
+                            )
+                            if (create_Response.value.status == true) {
+                                _company_create_response.value =
+                                    Create_Company_UiState.Success(create_Response.value)
+                                Log.d("COMP-56-DEBUG","$response")
+                            }
+
+                            if (create_Response.value.status == false) {
+                                _company_create_response.value =
+                                    Create_Company_UiState.Error(create_Response.value)
+                                Log.d("COMP-62-DEBUG","$response")
+                            }
+
+                        }catch (e: Exception){
+                            Log.d("COMP-VM-62 CATCH","$e")
                         }
                     }
+
                 }
             }
             catch (e: Exception){

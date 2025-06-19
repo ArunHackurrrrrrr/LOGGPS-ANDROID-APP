@@ -238,6 +238,7 @@ class remoteRepository : ViewModel() {
                 val dataBody = json.toRequestBody("user_data/json".toMediaType())
                 
                 val response = logGpsService.create_Company("Bearer $acceToken",dataBody,logo)
+                Log.d("REMOTE-REPO-LOG-GPS-241","$response")
                 onResult(response)
             }catch (e: Exception){
                 Log.d("REMOTE-REPO-LOG-GPS 233","$e")

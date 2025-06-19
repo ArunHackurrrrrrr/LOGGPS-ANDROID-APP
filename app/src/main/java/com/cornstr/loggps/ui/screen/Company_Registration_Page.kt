@@ -1,5 +1,6 @@
 package com.cornstr.loggps.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -70,9 +71,9 @@ fun company_Registration_Page(){
         address = companyAddress,
         company_phone = companyPhone,
         company_emial = companyMail,
-        latitude = companyLat,
-        longitude = companyLong,
-        parameter = companyParameter,
+        latitude = companyLat.toFloatOrNull(),
+        longitude = companyLong.toFloatOrNull(),
+        parameter = companyParameter.toIntOrNull(),
         is_active = isActive,
         company_Reg_Num = companyRegNo
     )
@@ -82,7 +83,7 @@ fun company_Registration_Page(){
     when(uistate){
         is Create_Company_UiState.Error<*> -> TODO()
         Create_Company_UiState.Loading -> {}
-        is Create_Company_UiState.Success<*> -> TODO()
+        is Create_Company_UiState.Success<*> -> {Log.d("COMP-SCREEN-SUCESS-MSG","$")}
     }
 
 
@@ -373,7 +374,11 @@ fun company_Registration_Page(){
                     onClick = {
                         loading = true
                         companyLogo?.let {
-                            createCompanyViewModel.add_Company_Details(company_Details,it)
+                            try {
+                                createCompanyViewModel.add_Company_Details(company_Details, it)
+                            }catch (e: Exception){
+                                Log.d("COMP-REG-SCREEN 380","$e")
+                            }
                         }
                               },
                     modifier = Modifier.fillMaxWidth().size(60.dp).clip(RoundedCornerShape(24.dp)),
