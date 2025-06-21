@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import kotlinx.parcelize.Parcelize
+import java.io.File
 
 
 @Parcelize
@@ -115,7 +116,8 @@ data class company_details(
     val longitude : Float ?=null,
     val parameter : Int ?=null,
     val is_active : Boolean ?=null,
-    val company_Reg_Num : String ?=null
+    val company_Reg_Num : String ?=null,
+    val logo : File ?=null
 ) : Parcelable
 
 @Parcelize

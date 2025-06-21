@@ -98,7 +98,10 @@ fun add_user_details(modifier: Modifier = Modifier,navController: NavController)
             val response = (uistate as Add_user_data_UiState.Success).data
             add_details_response = response
             loader = false
-            navController.navigate("home_page")
+            navController.navigate("home_page"){
+                popUpTo(0) { inclusive = true }
+                launchSingleTop = true
+            }
 
         }
         is Add_user_data_UiState.Error<*> ->{

@@ -43,7 +43,7 @@ class AddUserDetailsViewModel: ViewModel() {
 
     fun add_detials(userDetails: user_Data) {
     var user_detail_add_response  = mutableStateOf(user_details_response())
-        viewModelScope.launch {
+        viewModelScope.launch{
             var accessToken = getAccessTokenSuspend(_tokenManager)
 
             try {

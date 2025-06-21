@@ -247,4 +247,19 @@ class remoteRepository : ViewModel() {
     }
 
 
+
+
+    fun get_Company_Details(accessToken: String,onResult: (company_details) -> Unit){
+        viewModelScope.launch {
+            try {
+                val response = logGpsService.get_Company("Bearer $accessToken")
+                onResult(response)
+            } catch (e: Exception) {
+                onResult(company_details(name = "ERROR"))
+                Log.d("REMOTE-REPO-LOG-GPS-256", "$e")
+            }
+        }
+    }
+
+
 }

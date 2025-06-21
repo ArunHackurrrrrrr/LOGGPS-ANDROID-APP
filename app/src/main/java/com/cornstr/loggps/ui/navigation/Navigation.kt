@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import com.cornstr.loggps.data.repository.company_details
 import com.cornstr.loggps.ui.ViewModels.APIViewModel
 import com.cornstr.loggps.ui.ViewModels.HomeViewModel
+import com.cornstr.loggps.ui.screen.Admin_Dashboard
 import com.cornstr.loggps.ui.screen.add_user_details
 import com.cornstr.loggps.ui.screen.company_Registration_Page
 //import com.cornstr.loggps.ui.UIViewModel
@@ -49,7 +50,10 @@ fun NavigateScreen(navController: NavController, scaffoldPaddingValue : PaddingV
             add_user_details(modifier = Modifier,navController)
         }
         composable(Screen.Pages.Company_Details_Add.route){
-            company_Registration_Page()
+            company_Registration_Page(navController)
+        }
+        composable(Screen.Pages.Admin_Page.route){
+            Admin_Dashboard()
         }
 
     }

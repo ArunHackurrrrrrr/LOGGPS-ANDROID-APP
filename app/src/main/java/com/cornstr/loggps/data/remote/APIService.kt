@@ -13,6 +13,7 @@ import com.cornstr.loggps.data.repository.signup_credential
 import com.cornstr.loggps.data.repository.user_Data
 import com.cornstr.loggps.data.repository.company_Create_Response
 import com.cornstr.loggps.data.repository.user_details_response
+import com.cornstr.loggps.data.repository.company_details
 import okhttp3.MultipartBody
 //import retrofit2.Retrofit
 //import retrofit2.converter.gson.GsonConverterFactory
@@ -91,6 +92,12 @@ interface APIService{
         @Part("data") data : RequestBody,
         @Part image: MultipartBody.Part
     ) : company_Create_Response
+
+
+    @GET(APISConstants.get_Company)
+    suspend fun  get_Company(
+        @Header("Authorization") token : String,
+    ) : company_details
 
 }
 

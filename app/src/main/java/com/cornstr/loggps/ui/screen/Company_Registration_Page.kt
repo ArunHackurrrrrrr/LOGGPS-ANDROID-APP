@@ -1,6 +1,7 @@
 package com.cornstr.loggps.ui.screen
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.savedstate.savedState
 import coil.compose.rememberAsyncImagePainter
 import com.cornstr.loggps.data.repository.company_details
@@ -48,7 +50,7 @@ import java.io.File
 import java.nio.file.WatchEvent
 
 @Composable
-fun company_Registration_Page(){
+fun company_Registration_Page(navController: NavController){
     var companyName : String by remember { mutableStateOf("") }
     var companyDescription : String by remember { mutableStateOf("") }
     var companyAddress : String by remember { mutableStateOf("") }
@@ -81,9 +83,25 @@ fun company_Registration_Page(){
 
 
     when(uistate){
-        is Create_Company_UiState.Error<*> -> TODO()
+        is Create_Company_UiState.Error<*> -> {
+            val response = (uistate as Create_Company_UiState.Error)
+                navController.navigate("admin_page"){
+                    popUpTo(0) { inclusive = true }
+                    launchSingleTop = true
+            }
+        }
         Create_Company_UiState.Loading -> {}
-        is Create_Company_UiState.Success<*> -> {Log.d("COMP-SCREEN-SUCESS-MSG","$")}
+        is Create_Company_UiState.Success<*> -> {
+            val response = (uistate as Create_Company_UiState.Success).data
+            if(response.status == true)
+            {
+                navController.navigate("home_page"){
+                    popUpTo(0) { inclusive = true }
+                    launchSingleTop = true
+                }
+
+            }
+        }
     }
 
 
@@ -118,7 +136,9 @@ fun company_Registration_Page(){
                  ){
                      companyLogo.let {
                          Image(painter = rememberAsyncImagePainter(model = it),
-                             contentDescription = null, modifier = Modifier.clip(CircleShape).matchParentSize())
+                             contentDescription = null, modifier = Modifier
+                                 .clip(CircleShape)
+                                 .matchParentSize())
                      }
                  }
 
@@ -381,7 +401,10 @@ fun company_Registration_Page(){
                             }
                         }
                               },
-                    modifier = Modifier.fillMaxWidth().size(60.dp).clip(RoundedCornerShape(24.dp)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .size(60.dp)
+                        .clip(RoundedCornerShape(24.dp)),
                     colors = ButtonDefaults.buttonColors(
                         Color.Cyan
                     )

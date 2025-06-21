@@ -96,9 +96,10 @@ fun loginScreen(navController : NavController,viewModel: APIViewModel,modifier: 
         }
 
         if (apiState.loading == false && apiState.message.isNotEmpty() && apiState.status =="Authorised"){
-            navController.navigate("home_page"){popUpTo("login_page"){
-                inclusive = true
-            } }
+            navController.navigate("home_page"){
+                popUpTo(0) { inclusive = true }
+                launchSingleTop = true
+            }
             isLoading = "false"
         }
 
@@ -106,7 +107,10 @@ fun loginScreen(navController : NavController,viewModel: APIViewModel,modifier: 
             Log.d("AXVPGW","THIS IS THE UN AUTH ! - ${token_Response.TokenStatus}")
             isLoading = "true"
             Log.d("LOGIN SCREEN 93","$token_Response")
-            navController.navigate("home_page")
+            navController.navigate("home_page"){
+                popUpTo(0) { inclusive = true }
+                launchSingleTop = true
+            }
             Text("UNAUTHORISED")
         }
         if (token_Response.TokenStatus.isNotEmpty() && token_Response.TokenStatus =="INVALID_CRED"){

@@ -277,7 +277,9 @@ fun homeScreen(scaffoldPaddingValue : PaddingValues,navController: NavController
                             Divider()
 
                             Button(
-                                onClick = {},
+                                onClick = {
+                                    navController.navigate("admin_page3")
+                                },
                                 modifier = Modifier.fillMaxWidth()
                                     .weight(0.2f), shape = RoundedCornerShape(24.dp)
                             )

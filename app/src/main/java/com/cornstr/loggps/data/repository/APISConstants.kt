@@ -10,4 +10,5 @@ object APISConstants{
     const val add_User_Details = "dashboard/add-user-details/"
     const val add_User_Details_Profile_Picture = "dashboard/add-user-image/"
     const val create_Company = "dashboard/create-company/"
+    const val get_Company = "dashboard/get-company/"
 }

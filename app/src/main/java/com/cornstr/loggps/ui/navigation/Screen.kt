@@ -1,5 +1,6 @@
 package com.cornstr.loggps.ui.navigation
 
+import android.graphics.pdf.PdfDocument
 import androidx.annotation.DrawableRes
 import com.cornstr.loggps.R
 
@@ -22,6 +23,7 @@ sealed class Screen(val title : String, val route : String) {
 
         object Company_Details_Add : Pages("AddCompany","add_company_details_page",R.drawable.ic_notes)
 
+        object Admin_Page : Pages("AdminPage","admin_page",R.drawable.ic_profile)
     }
 }
 
